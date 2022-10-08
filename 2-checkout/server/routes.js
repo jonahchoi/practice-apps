@@ -4,11 +4,16 @@ const db = require("./db");
 router.get('/verify', (req, res) => {
   db.queryAsync('SELECT * FROM responses WHERE session = ?', [req.session_id])
     .then((result) => {
-      if(result[0].length > 0) {
-        // res.json({userExists: true });
+      if(!result[0][0]){
+        res.status(200).json({currentForm: 'F0'});
+      } else if(result[0][0].completed) {
         res.sendStatus(409);
+      } else if (result[0][0].paymentId !== null) {
+        res.status(200).json({currentForm: 'F4'});
+      } else if (result[0][0].addressId !== null) {
+        res.status(200).json({currentForm: 'F3'});
       } else {
-        res.sendStatus(200);
+        res.status(200).json({currentForm: 'F2'})
       }
     })
     .catch((err) => {
@@ -58,6 +63,14 @@ router.get('/responses', (req, res) => {
     res.json(response[0][0]);
   })
   .catch(err=>{console.error(err); res.sendStatus(404)})
+})
+
+router.put('/responses', (req, res) => {
+  db.queryAsync('UPDATE responses SET completed = true WHERE session = ?', [req.session_id])
+  .then((response) => {
+    res.sendStatus(200);
+  })
+  .catch(err => {console.error(err); res.sendStatus(404)});
 })
 
 module.exports = router;

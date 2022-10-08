@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import UserForm from './UserForm.jsx';
 import AddressForm from './AddressForm.jsx';
@@ -8,16 +8,19 @@ import Checkout from './Checkout.jsx';
 const App = () => {
 
   const [currentForm, setCurrentForm] = useState('F0');
-  const [isValidUser, setIsValidUser] = useState(true);
   const [alreadyPurchased, setAlreadyPurchased] = useState(false);
 
-  const authenticate = () => {
+  useEffect(() => {
+    checkStatus();
+  }, []);
+
+  const checkStatus = () => {
     axios.get('/verify')
       .then((response) => {
-        setCurrentForm('F1')
+        setCurrentForm(response.data.currentForm);
       })
       .catch((err) => {
-        setIsValidUser(false);
+        setAlreadyPurchased(true);
       })
   }
 
@@ -41,7 +44,7 @@ const App = () => {
       break;
 
     default:
-      form = <button className="submit-button" onClick={authenticate}>Checkout</button>;
+      form = <button className="submit-button" onClick={()=>setCurrentForm('F1')}>Checkout</button>;
       break;
   }
 
@@ -53,9 +56,6 @@ const App = () => {
       </div>
       <div className="main-container">
         {alreadyPurchased ? <div className="box">Thank you for your purchase! You are never allowed here again!</div> : form}
-
-        {!isValidUser ? <div className="error-popup">You've already checked out! Please go away!</div> : null}
-
       </div>
     </div>
   );

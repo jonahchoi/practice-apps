@@ -17,6 +17,9 @@ const Checkout = ({ setCurrentForm, setAlreadyPurchased }) => {
   const handleSubmit = () => {
     setAlreadyPurchased(true);
     setCurrentForm('F0');
+    axios.put('/responses', {completed: true})
+      .then((result) => console.log(result))
+      .catch(err => console.error(err));
   }
 
   if(!info || !info.hasOwnProperty('name')){
