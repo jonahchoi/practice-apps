@@ -32,7 +32,7 @@ const AddressForm = ({setCurrentForm}) => {
       <div>
         <input className="input-form" placeholder="Line 2" type='text' value={line2} onChange={(e)=>setLine2(e.target.value)}></input>
       </div>
-      <div className="split-input">
+      <div className="flex-box">
         <input className="input-form" placeholder="City" required type='text' value={city} onChange={(e)=>setCity(e.target.value)}></input>
 
         <input className="input-form" placeholder="State" required type='text' value={stateAbr} onChange={(e)=>setStateAbr(e.target.value)}></input>

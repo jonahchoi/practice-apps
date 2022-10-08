@@ -7,8 +7,9 @@ import Checkout from './Checkout.jsx';
 
 const App = () => {
 
-  const [currentForm, setCurrentForm] = useState('F3');
+  const [currentForm, setCurrentForm] = useState('F0');
   const [isValidUser, setIsValidUser] = useState(true);
+  const [alreadyPurchased, setAlreadyPurchased] = useState(false);
 
   const authenticate = () => {
     axios.get('/verify')
@@ -20,39 +21,44 @@ const App = () => {
       })
   }
 
+  let form = null;
+
   switch(currentForm) {
     case 'F1':
-      return <UserForm setCurrentForm={setCurrentForm} />
+      form = <UserForm setCurrentForm={setCurrentForm} />
       break;
 
     case 'F2':
-      return <AddressForm setCurrentForm={setCurrentForm} />
+      form = <AddressForm setCurrentForm={setCurrentForm} />
       break;
 
     case 'F3':
-      return <PaymentForm setCurrentForm={setCurrentForm} />
+      form = <PaymentForm setCurrentForm={setCurrentForm} />
       break;
 
     case 'F4':
-      return <Checkout setCurrentForm={setCurrentForm} />
+      form = <Checkout setCurrentForm={setCurrentForm} setAlreadyPurchased={setAlreadyPurchased} />
       break;
 
     default:
-      return(
-        <div>
-          <button onClick={authenticate}>Checkout</button>
-
-          {!isValidUser ? <div style={{
-            backgroundColor: '#ff7675',
-            border: '1px solid red',
-            borderRadius: '5px',
-            padding: '10px',
-            margin: '5px'
-          }}>You\'ve already checked out! Please go away!</div> : ''}
-        </div>
-      );
+      form = <button className="submit-button" onClick={authenticate}>Checkout</button>;
       break;
   }
+
+  return(
+    <div>
+      <div className='nav-bar'>
+        <h1>BuyStuffHere</h1>
+
+      </div>
+      <div className="main-container">
+        {alreadyPurchased ? <div className="box">Thank you for your purchase! You are never allowed here again!</div> : form}
+
+        {!isValidUser ? <div className="error-popup">You've already checked out! Please go away!</div> : null}
+
+      </div>
+    </div>
+  );
 
 }
 

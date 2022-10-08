@@ -54,7 +54,13 @@ h6 {
   overflow-wrap: break-word;
 }
 
-main {
+body {
+  background-color: #d2dae2;
+}
+h1{
+  color:black;
+}
+.main-container {
   max-width: 840px;
   padding: 16px;
   margin: auto;
@@ -68,11 +74,54 @@ main {
   margin: 10px 0;
 }
 
-.split-input {
+.flex-box {
   display: flex;
   gap: 10px;
 }
 
 .submit-button {
   float: right;
+  background-color: #fff200;
+  border: 1px solid #fff200;
+  border-radius: 5px;
+  padding: 10px;
+
+}
+
+.error-popup {
+  background-color: #ff7675;
+  border: 1px solid red;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px;
+  width: 75%;
+}
+
+.nav-bar {
+  position: sticky;
+  background-color: #fffa65;
+  width: 100vw;
+  padding: 10px;
+}
+
+.box,
+.cart,
+.checkout-summary {
+  padding: 15px;
+  border: 1px solid #2f3542;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.checkout-summary {
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 1.5rem;
+  align-self: flex-start;
+}
+
+.summary-item {
+  border-bottom: 1px solid #2f3542;
+  padding-bottom: 10px;
 }

@@ -25,7 +25,7 @@ const PaymentForm = ({setCurrentForm}) => {
       <div>
         <input className="input-form" placeholder="Card Number" required type='text' value={number} onChange={(e)=>setNumber(e.target.value)}></input>
       </div>
-      <div className="split-input">
+      <div className="flex-box">
         <input className="input-form" placeholder="Expiration date (MM/YYYY)" required type='text' value={expiration} onChange={(e)=>setExpiration(e.target.value)}></input>
         <input className="input-form" placeholder="CVV" required type='text' value={cvv} onChange={(e)=>setCvv(e.target.value)}></input>
         <input className="input-form" placeholder="Zip Code" required type='text' value={zip} onChange={(e)=>setZip(e.target.value)}></input>

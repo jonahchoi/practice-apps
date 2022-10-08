@@ -5,8 +5,6 @@ const sessionHandler = require("./middleware/session-handler");
 const logger = require("./middleware/logger");
 const router = require('./routes.js');
 
-// Establishes connection to the database on server start
-
 const app = express();
 app.use(express.json());
 // Adds `req.session_id` based on the incoming cookie value.

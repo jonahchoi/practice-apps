@@ -18,6 +18,7 @@ db.connectAsync()
     db.queryAsync(
       `CREATE TABLE IF NOT EXISTS responses (
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        completed BOOLEAN NOT NULL DEFAULT false,
         session VARCHAR(255) NOT NULL UNIQUE,
         name VARCHAR(255) NOT NULL,
         email VARCHAR(255) NOT NULL,
